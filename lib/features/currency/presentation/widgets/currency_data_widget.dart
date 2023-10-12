@@ -21,6 +21,8 @@ class CurrencyDataWidget extends StatelessWidget {
     final (changePercent, isIncreasing) =
         utils.getChangePercent(currency: currency);
 
+    final test;
+
     return GestureDetector(
       onTap: () {
         print(currency.id);
