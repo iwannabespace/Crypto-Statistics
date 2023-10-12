@@ -3,6 +3,7 @@ import 'package:crypto_statistics/features/currency/presentation/pages/home_page
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'injection_container.dart' as sl;
 import 'package:crypto_statistics/core/router/router.dart' as router;
 
@@ -25,7 +26,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blueAccent,
+          ),
+          textTheme: GoogleFonts.bitterTextTheme().apply(
+            bodyColor: Colors.black,
+            displayColor: Colors.black,
+          ),
         ),
       ),
     );

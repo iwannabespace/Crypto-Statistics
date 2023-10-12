@@ -27,8 +27,9 @@ class CurrencyRepositoryImpl implements CurrencyRepository {
             currencies: remoteAllCurrencies);
         if (!cached) {
           return Left(CacheFailure());
+        } else {
+          return Right(remoteAllCurrencies);
         }
-        return Right(remoteAllCurrencies);
       } on ServerException {
         return Left(ServerFailure());
       }

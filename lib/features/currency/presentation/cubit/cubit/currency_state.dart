@@ -13,8 +13,12 @@ final class CurrencyLoading extends CurrencyState {}
 
 final class CurrencyLoaded extends CurrencyState {
   final List<Currency> currencies;
+  final USDPrice usdPrice;
 
-  const CurrencyLoaded({required this.currencies});
+  const CurrencyLoaded({
+    required this.currencies,
+    required this.usdPrice,
+  });
 }
 
 final class CurrencyError extends CurrencyState {

@@ -9,7 +9,7 @@ abstract class CurrencyLocalDataSource {
   Future<bool> cacheAllCurrencies({required List<CurrencyModel> currencies});
 }
 
-const cacheString = 'firstEightCurrencies';
+const cacheStringCurrency = 'allCurrencies';
 
 class CurrencyLocalDataSourceImpl implements CurrencyLocalDataSource {
   final SharedPreferences sharedPreferences;
@@ -18,7 +18,7 @@ class CurrencyLocalDataSourceImpl implements CurrencyLocalDataSource {
 
   @override
   Future<List<CurrencyModel>> getAllCurrencies() async {
-    final jsonString = sharedPreferences.getString(cacheString);
+    final jsonString = sharedPreferences.getString(cacheStringCurrency);
 
     if (jsonString != null) {
       return (json.decode(jsonString) as List)
@@ -37,6 +37,6 @@ class CurrencyLocalDataSourceImpl implements CurrencyLocalDataSource {
         currencies.map((e) => json.encode(e.toJson())).toList().join(',');
     final result = '[$joined]';
 
-    return sharedPreferences.setString(cacheString, result);
+    return await sharedPreferences.setString(cacheStringCurrency, result);
   }
 }

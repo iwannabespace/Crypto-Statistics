@@ -1,4 +1,10 @@
+import 'package:flutter/material.dart';
+
 const apiUrl = 'https://api.coincap.io/v2/assets';
+const iconApiUrl = 'https://coinicons-api.vercel.app/api/icon';
+const jsBachUrl =
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Johann_Sebastian_Bach.jpg/440px-Johann_Sebastian_Bach.jpg';
+const usdApiUrl = "https://api.genelpara.com/embed/doviz.json";
 
 const symbols = [
   "BTC",
@@ -203,4 +209,31 @@ const ids = [
   "celo",
   "mask-network",
   "singularitynet"
+];
+
+const List<List<Color>> palette = [
+  [
+    Color.fromARGB(255, 120, 20, 108),
+    Color.fromARGB(255, 148, 42, 136),
+    Color.fromARGB(255, 175, 64, 163),
+    Color.fromARGB(255, 230, 107, 217),
+  ],
+  [
+    Color.fromARGB(255, 225, 215, 77),
+    Color.fromARGB(255, 214, 187, 47),
+    Color.fromARGB(255, 209, 173, 32),
+    Color.fromARGB(255, 203, 159, 17),
+  ],
+  [
+    Color.fromARGB(255, 103, 186, 82),
+    Color.fromARGB(255, 95, 198, 49),
+    Color.fromARGB(255, 91, 204, 33),
+    Color.fromARGB(255, 87, 209, 16),
+  ],
+  [
+    Color.fromARGB(255, 99, 185, 196),
+    Color.fromARGB(255, 56, 179, 195),
+    Color.fromARGB(255, 34, 176, 195),
+    Color.fromARGB(255, 12, 173, 194),
+  ],
 ];
