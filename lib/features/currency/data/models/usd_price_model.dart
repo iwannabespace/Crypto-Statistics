@@ -9,7 +9,7 @@ class USDPriceModel extends USDPrice {
 
   Map<String, dynamic> toJson() {
     return {
-      'price': price,
+      "USD": {'satis': price},
     };
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_statistics/features/currency/domain/entities/currency.dart';
 import 'package:crypto_statistics/features/currency/domain/entities/usd_price_entity.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,13 @@ class CurrencyDataWidget extends StatelessWidget {
                   SizedBox(
                     width: 35,
                     height: 35,
-                    child: Image.network(cryptoSymbolLink),
+                    child: CachedNetworkImage(
+                      imageUrl: cryptoSymbolLink,
+                      placeholder: (context, url) =>
+                          Image.asset("assets/crypto_owl.png"),
+                      errorWidget: (context, url, error) =>
+                          Image.asset("assets/crypto_owl.png"),
+                    ),
                   ),
                   const SizedBox(width: 15),
                   Text(

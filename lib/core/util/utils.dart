@@ -1,6 +1,7 @@
 import 'package:crypto_statistics/features/currency/domain/entities/currency.dart';
 import 'package:crypto_statistics/features/currency/domain/entities/usd_price_entity.dart';
 import 'package:crypto_statistics/core/constants/constants.dart' as constants;
+import 'package:flutter/material.dart';
 
 String getCurrencyPriceFormatted({required Currency currency}) {
   final price = double.parse(currency.priceUsd);

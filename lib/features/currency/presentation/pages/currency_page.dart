@@ -11,9 +11,11 @@ class CurrencyPage extends StatelessWidget {
   late List<ChartData> supData;
   late List<ChartData> priData;
   late TooltipBehavior _tooltip;
+  late TooltipBehavior _tooltip2;
 
   void setChartData() {
     _tooltip = TooltipBehavior(enable: true);
+    _tooltip2 = TooltipBehavior(enable: true);
     supData = [
       ChartData(which: "Supply", amount: currency.supply),
       ChartData(which: "Max Supply", amount: currency.maxSupply ?? "0"),
@@ -38,6 +40,7 @@ class CurrencyPage extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
           ),
           title: Text(currency.symbol),
+          centerTitle: true,
           elevation: 0,
         ),
         body: Column(
@@ -77,7 +80,7 @@ class CurrencyPage extends StatelessWidget {
               ),
             ),
             SfCircularChart(
-              tooltipBehavior: _tooltip,
+              tooltipBehavior: _tooltip2,
               series: [
                 PieSeries<ChartData, String>(
                   dataSource: priData,

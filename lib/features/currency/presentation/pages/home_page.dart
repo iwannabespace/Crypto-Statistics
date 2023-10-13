@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_statistics/features/currency/presentation/cubit/cubit/currency_cubit.dart';
 import 'package:crypto_statistics/features/currency/presentation/cubit/cubit/currency_state.dart';
 import 'package:crypto_statistics/features/currency/presentation/widgets/currency_data_widget.dart';
@@ -12,21 +13,64 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final height = MediaQuery.sizeOf(context).height;
     return BlocConsumer<CurrencyCubit, CurrencyState>(
       listener: (context, state) {},
       builder: (context, state) {
         if (state is CurrencyInitial) {
           return Container();
         } else if (state is CurrencyLoading) {
-          return Container();
+          return SafeArea(
+            child: Scaffold(
+              body: SizedBox(
+                width: width,
+                height: height,
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width,
+                  height: MediaQuery.sizeOf(context).height,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 40),
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Image.asset("assets/crypto_owl.png"),
+                          ),
+                        ),
+                      ),
+                      const Expanded(
+                        flex: 8,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                                color: Color.fromARGB(255, 0, 0, 128)),
+                            SizedBox(height: 10),
+                            Text("Loading Currency Datas!"),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
         } else if (state is CurrencyLoaded) {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
-                leading: const Icon(
-                  Icons.menu,
-                  color: Colors.black,
+                leading: IconButton(
+                  onPressed: () => context.read<CurrencyCubit>().execute(),
+                  icon: const Icon(
+                    Icons.refresh,
+                    color: Colors.black,
+                  ),
                 ),
                 title: const Text(
                   "HOME",
@@ -42,7 +86,13 @@ class HomePage extends StatelessWidget {
                         const EdgeInsets.only(top: 4, bottom: 4, right: 16),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.network(constants.jsBachUrl),
+                      child: CachedNetworkImage(
+                        imageUrl: constants.jsBachUrl,
+                        placeholder: (context, url) =>
+                            Image.asset("assets/crypto_owl.png"),
+                        errorWidget: (context, url, error) =>
+                            Image.asset("assets/crypto_owl.png"),
+                      ),
                     ),
                   ),
                 ],
@@ -143,7 +193,22 @@ class HomePage extends StatelessWidget {
             ),
           );
         } else {
-          return Container(color: Colors.red);
+          return SafeArea(
+            child: Scaffold(
+              body: SizedBox(
+                width: width,
+                height: height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/crypto_owl.png"),
+                    const SizedBox(height: 10),
+                    const Text("Ooops something went wrong :("),
+                  ],
+                ),
+              ),
+            ),
+          );
         }
       },
     );

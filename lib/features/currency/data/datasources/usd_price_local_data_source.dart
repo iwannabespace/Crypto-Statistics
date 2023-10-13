@@ -20,6 +20,8 @@ class USDPriceLocalDataSourceImpl implements USDPriceLocalDataSource {
   Future<USDPriceModel> getUSDPrice() {
     final jsonString = sharedPreferences.getString(cacheStringUSD);
 
+    print("This is ${jsonString}");
+
     if (jsonString != null) {
       return Future.value(
           USDPriceModel.fromJson(json: json.decode(jsonString)));
@@ -30,6 +32,8 @@ class USDPriceLocalDataSourceImpl implements USDPriceLocalDataSource {
 
   @override
   Future<bool> cacheUSDPrice({required USDPriceModel usdPrice}) async {
+    final encoded = json.encode(usdPrice.toJson());
+    print("This is 2 ${encoded}");
     return await sharedPreferences.setString(
         cacheStringUSD, json.encode(usdPrice.toJson()));
   }
