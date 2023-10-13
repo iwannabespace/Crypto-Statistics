@@ -1,41 +1,24 @@
-import 'dart:async';
-
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:crypto_statistics/features/currency/domain/entities/currency.dart';
 import 'package:crypto_statistics/features/currency/presentation/cubit/cubit/currency_cubit.dart';
+import 'package:crypto_statistics/features/currency/presentation/cubit/cubit/currency_state.dart';
 import 'package:crypto_statistics/features/currency/presentation/widgets/currency_data_widget.dart';
 import 'package:crypto_statistics/features/currency/presentation/widgets/currency_price_grid_widget.dart';
-import 'package:crypto_statistics/features/currency/presentation/widgets/currency_price_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crypto_statistics/core/constants/constants.dart' as constants;
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CurrencyCubit, CurrencyState>(
-      listener: (context, state) {
-        if (state is CurrencyInitial) {
-          print("Currency Initial");
-        } else if (state is CurrencyLoading) {
-          print("Getting the data");
-        } else if (state is CurrencyLoaded) {
-        } else if (state is CurrencyError) {
-          print("Something went wrong");
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is CurrencyInitial) {
           return Container();
         } else if (state is CurrencyLoading) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return Container();
         } else if (state is CurrencyLoaded) {
           return SafeArea(
             child: Scaffold(
@@ -73,15 +56,79 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: CurrencyGridWidget(
-                        currencies: state.currencies,
+                        currencies: state.topCurrencies,
                       ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 20),
+                            child: TextField(
+                              controller: controller,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                              cursorColor: Colors.orange,
+                              decoration: InputDecoration(
+                                hintText: "Search Crypto Currency",
+                                hintStyle: const TextStyle(fontSize: 14),
+                                prefixIcon: const Icon(Icons.search),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    if (controller.text.isNotEmpty) {
+                                      controller.text = "";
+                                      context
+                                          .read<CurrencyCubit>()
+                                          .filter(str: "", state: state);
+                                    }
+                                  },
+                                  child: const Icon(Icons.cancel_outlined),
+                                ),
+                                prefixIconColor: MaterialStateColor.resolveWith(
+                                  (states) =>
+                                      states.contains(MaterialState.focused)
+                                          ? Colors.orange
+                                          : Colors.grey,
+                                ),
+                                suffixIconColor: MaterialStateColor.resolveWith(
+                                  (states) =>
+                                      states.contains(MaterialState.focused)
+                                          ? Colors.orange
+                                          : Colors.grey,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(
+                                    color: Colors.grey,
+                                    width: 3,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(
+                                    color: Colors.orange,
+                                    width: 3,
+                                  ),
+                                ),
+                              ),
+                              onChanged: (value) {
+                                context
+                                    .read<CurrencyCubit>()
+                                    .filter(str: value, state: state);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Expanded(
                       child: ListView.separated(
-                        itemCount: 100,
+                        itemCount: state.bottomCurrencies.length,
                         itemBuilder: (context, index) {
                           return CurrencyDataWidget(
-                            currency: state.currencies[index],
+                            currency: state.bottomCurrencies[index],
                             usdPrice: state.usdPrice,
                           );
                         },
@@ -89,16 +136,14 @@ class HomePage extends StatelessWidget {
                           return const SizedBox(height: 10);
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
           );
         } else {
-          return Container(
-            color: Colors.red,
-          );
+          return Container(color: Colors.red);
         }
       },
     );

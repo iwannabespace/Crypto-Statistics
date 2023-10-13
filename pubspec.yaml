@@ -45,6 +45,8 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   carousel_slider: ^4.2.1
   google_fonts: ^6.1.0
+  dropdown_button2: ^2.3.9
+  syncfusion_flutter_charts: ^23.1.40
 
 dev_dependencies:
   flutter_test:

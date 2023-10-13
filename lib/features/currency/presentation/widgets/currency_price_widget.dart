@@ -1,12 +1,12 @@
-import 'dart:math';
-
 import 'package:crypto_statistics/features/currency/domain/entities/currency.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_statistics/core/constants/constants.dart' as constants;
 
 class CurrencyPriceWidget extends StatelessWidget {
-  const CurrencyPriceWidget({required this.currency, super.key});
+  const CurrencyPriceWidget(
+      {required this.currency, required this.index, super.key});
   final Currency currency;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CurrencyPriceWidget extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
-            colors: constants.palette[Random().nextInt(4)],
+            colors: constants.palette[index],
           ),
           borderRadius: BorderRadius.circular(12),
         ),

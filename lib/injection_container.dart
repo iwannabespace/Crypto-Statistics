@@ -24,6 +24,7 @@ Future<void> init() async {
       getUSDPrice: sl(),
     ),
   );
+
   sl.registerLazySingleton(() => GetAllCurrencies(currencyRepository: sl()));
   sl.registerLazySingleton<CurrencyRepository>(
     () => CurrencyRepositoryImpl(

@@ -237,3 +237,11 @@ const List<List<Color>> palette = [
     Color.fromARGB(255, 12, 173, 194),
   ],
 ];
+
+const List<String> ddbOptions = [
+  "Sort By",
+  "Price: Lowest",
+  "Price: Highest",
+  "Change: Increasing",
+  "Change: Decreasing",
+];

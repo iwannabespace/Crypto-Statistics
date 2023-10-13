@@ -14,17 +14,25 @@ class CurrencyGridWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(child: CurrencyPriceWidget(currency: currencies[0])),
+              Expanded(
+                  child:
+                      CurrencyPriceWidget(currency: currencies[0], index: 0)),
               const SizedBox(width: 12),
-              Expanded(child: CurrencyPriceWidget(currency: currencies[1])),
+              Expanded(
+                  child:
+                      CurrencyPriceWidget(currency: currencies[1], index: 1)),
             ],
           ),
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: CurrencyPriceWidget(currency: currencies[2])),
+              Expanded(
+                  child:
+                      CurrencyPriceWidget(currency: currencies[2], index: 2)),
               const SizedBox(width: 12),
-              Expanded(child: CurrencyPriceWidget(currency: currencies[3])),
+              Expanded(
+                  child:
+                      CurrencyPriceWidget(currency: currencies[3], index: 3)),
             ],
           ),
         ],

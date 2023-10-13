@@ -1,8 +1,8 @@
 import 'package:crypto_statistics/features/currency/domain/entities/currency.dart';
 import 'package:crypto_statistics/features/currency/domain/entities/usd_price_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto_statistics/core/constants/constants.dart' as constants;
 import 'package:crypto_statistics/core/util/utils.dart' as utils;
+import 'package:crypto_statistics/core/router/router.dart';
 
 class CurrencyDataWidget extends StatelessWidget {
   const CurrencyDataWidget(
@@ -21,11 +21,9 @@ class CurrencyDataWidget extends StatelessWidget {
     final (changePercent, isIncreasing) =
         utils.getChangePercent(currency: currency);
 
-    final test;
-
     return GestureDetector(
       onTap: () {
-        print(currency.id);
+        router.push("/home/currency", extra: currency);
       },
       child: Container(
         height: 60,
